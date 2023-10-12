@@ -9,4 +9,8 @@ Set-Location -Path ".\newsproducer"
 ./gradlew build
 docker build --tag=newsproducer:latest .
 Set-Location -Path $currentDir
+Set-Location -Path ".\newsconsumer"
+./gradlew build
+docker build --tag=newsconsumer:latest .
+Set-Location -Path $currentDir
 docker-compose up -d

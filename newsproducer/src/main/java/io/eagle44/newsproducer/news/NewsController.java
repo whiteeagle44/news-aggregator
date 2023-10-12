@@ -17,4 +17,9 @@ class NewsController {
     List<NewsResponse> getNews() {
         return newsService.getNews("Iga%20Swiatek");
     }
+
+    @GetMapping("kafka")
+    void publishKafkaMessage() {
+        newsService.publishKafkaMessage("hello");
+    }
 }

@@ -16,23 +16,4 @@ public class NewsProducerApplication {
 		SpringApplication.run(NewsProducerApplication.class, args);
 	}
 
-//	@Bean
-//	public NewTopic topic() {
-//		return TopicBuilder.name("topic1")
-//				.partitions(10)
-//				.replicas(1)
-//				.build();
-//	}
-//
-//	@KafkaListener(id = "myId", topics = "topic1")
-//	public void listen(String in) {
-//		System.out.println(in);
-//	}
-//
-//	@Bean
-//	public ApplicationRunner runner(KafkaTemplate<String, String> template) {
-//		return args -> {
-//			template.send("topic1", "test");
-//		};
-//	}
 }
