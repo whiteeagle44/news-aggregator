@@ -23,11 +23,11 @@ public class NewsDataIOService {
         if (Objects.isNull(newsDataIOResponse)) {
             return List.of();
         }
-        return newsDataIOResponse.getResults()
+        return newsDataIOResponse.results()
                 .stream()
                 .map(r -> new News(
-                        r.getTitle(), r.getLink(), r.getDescription(),
-                        r.getPubDate(), r.getSourceId(), r.getImageURL()))
+                        r.title(), r.link(), r.description(),
+                        r.pubDate(), r.sourceId(), r.imageURL()))
                 .toList();
     }
 }
