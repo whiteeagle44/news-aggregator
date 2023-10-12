@@ -1,5 +1,7 @@
-## run dockercompose
-` docker compose up --build --force-recreate newsproducer`
+## To run the app
 
-## build java app .jar file
-`./gradlew clean build`
+On Windows execute the `build-and-run.ps1` powershell script by running the command:
+
+```powershell
+./build-and-run.ps1
+```

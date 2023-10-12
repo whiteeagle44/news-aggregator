@@ -17,9 +17,4 @@ class NewsController {
     List<NewsResponse> getNews() {
         return newsService.getNews("Iga%20Swiatek");
     }
-
-    @GetMapping("/hey")
-    String getHello() {
-        return "hey";
-    }
 }
