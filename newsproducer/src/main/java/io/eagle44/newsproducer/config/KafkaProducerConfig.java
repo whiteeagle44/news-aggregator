@@ -13,6 +13,7 @@ import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -30,12 +31,12 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<Integer, News> producerFactory() {
+    public ProducerFactory<Integer, List<News>> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<Integer, News> kafkaTemplate() {
+    public KafkaTemplate<Integer, List<News>> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

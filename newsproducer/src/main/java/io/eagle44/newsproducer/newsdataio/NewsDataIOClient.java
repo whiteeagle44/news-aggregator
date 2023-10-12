@@ -40,17 +40,28 @@ class NewsDataIOClient {
                     throw new ServiceUnavailableException("External service failed to process after max retries");
                 });
 
+        URI uri;
+        if (!topic.isEmpty()) {
+            uri = buildQueryUri(topic);
+        } else {
+            uri = buildQueryUri();
+        }
+
         return builder
                 .defaultHeader("X-ACCESS-KEY",  token)
                 .clientConnector(new ReactorClientHttpConnector(HttpClient.newConnection().compress(true)))
                 .build()
                 .get()
-                .uri(buildQueryUri(topic))
+                .uri(uri)
                 .retrieve()
                 .onStatus(HttpStatus.UNAUTHORIZED::equals, response -> Mono.error(new UnauthorizedException("Bad credentials")))
                 .toEntity(NewsDataIOResponse.class)
                 .retryWhen(retry5xx)
                 .block();
+    }
+
+    private URI buildQueryUri() {
+        return URI.create(baseUrl);
     }
 
     private URI buildQueryUri(String topic) {

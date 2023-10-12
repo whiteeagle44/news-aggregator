@@ -1,5 +1,6 @@
 package io.eagle44.newsconsumer.config;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.eagle44.newsconsumer.news.News;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -14,6 +15,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @EnableKafka
@@ -31,8 +33,9 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConsumerFactory<Integer, News> consumerFactory() {
-        JsonDeserializer<News> deserializer = new JsonDeserializer<>(News.class);
+    public ConsumerFactory<Integer, List<News>> consumerFactory() {
+        JsonDeserializer<List<News>> deserializer = new JsonDeserializer<>(new TypeReference<>() {
+        });
         deserializer.addTrustedPackages("io.eagle44.newsconsumer.news.News");
         deserializer.setUseTypeMapperForKey(true);
 
@@ -43,9 +46,9 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<Integer, News>
+    public ConcurrentKafkaListenerContainerFactory<Integer, List<News>>
     kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<Integer, News> factory =
+        ConcurrentKafkaListenerContainerFactory<Integer, List<News>> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;

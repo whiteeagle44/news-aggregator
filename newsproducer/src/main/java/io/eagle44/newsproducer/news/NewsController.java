@@ -13,8 +13,8 @@ class NewsController {
         this.newsService = newsService;
     }
 
-    @GetMapping("/kafka")
+    @GetMapping("/load-recent-news")
     void getNews() {
-        newsService.getNews("Iga%20Swiatek");
+        newsService.getNews("");
     }
 }
