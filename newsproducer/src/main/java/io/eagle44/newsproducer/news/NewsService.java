@@ -11,24 +11,25 @@ import java.util.concurrent.CompletableFuture;
 @Service
 class NewsService {
     private final NewsDataIOService newsDataIOService;
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<Integer, News> kafkaTemplate;
 
-    public NewsService(NewsDataIOService newsDataIOService, KafkaTemplate<String, String> kafkaTemplate) {
+    public NewsService(NewsDataIOService newsDataIOService, KafkaTemplate<Integer, News> kafkaTemplate) {
         this.newsDataIOService = newsDataIOService;
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public List<NewsResponse> getNews(String topic) {
-        return newsDataIOService.getNews(topic);
+    public void getNews(String topic) {
+        List<News> news = newsDataIOService.getNews(topic);
+        publishKafkaNews(news.get(0));
     }
 
-    public void publishKafkaMessage(String message) {
-        CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send("topic1", message);
+    public void publishKafkaNews(News news) {
+        CompletableFuture<SendResult<Integer, News>> future = kafkaTemplate.send("news", news);
         future.whenComplete((result, ex) -> {
             if (ex == null) {
-                System.out.println("Sent message=[" + message + "] with offset=[" + result.getRecordMetadata().offset() + "]");
+                System.out.println("Sent news=[" + news.getTitle() + "] with offset=[" + result.getRecordMetadata().offset() + "]");
             } else {
-                System.out.println("Unable to send message=[" + message + "] due to : " + ex.getMessage());
+                System.out.println("Unable to send news=[" + news.getTitle()  + "] due to : " + ex.getMessage());
             }
         });
     }

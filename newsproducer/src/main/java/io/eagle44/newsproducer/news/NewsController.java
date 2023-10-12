@@ -13,13 +13,8 @@ class NewsController {
         this.newsService = newsService;
     }
 
-    @GetMapping("/iga")
-    List<NewsResponse> getNews() {
-        return newsService.getNews("Iga%20Swiatek");
-    }
-
-    @GetMapping("kafka")
-    void publishKafkaMessage() {
-        newsService.publishKafkaMessage("hello");
+    @GetMapping("/kafka")
+    void getNews() {
+        newsService.getNews("Iga%20Swiatek");
     }
 }

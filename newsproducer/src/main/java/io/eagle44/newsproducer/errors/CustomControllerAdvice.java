@@ -23,7 +23,7 @@ public class CustomControllerAdvice {
 
     // fallback method
     @ExceptionHandler(Exception.class)
-    public ResponseEntity handleExceptions(Exception e) {
+    public ResponseEntity<ErrorResponse> handleExceptions(Exception e) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR; // 500
         return new ResponseEntity<>(new ErrorResponse(status, e.getMessage()), status);
     }
