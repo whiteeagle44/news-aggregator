@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "newsdataio-token",
+      "type": "java.lang.String",
+      "description": "Authorization token for NewsData.IO REST API"
+    }
+  ] }
