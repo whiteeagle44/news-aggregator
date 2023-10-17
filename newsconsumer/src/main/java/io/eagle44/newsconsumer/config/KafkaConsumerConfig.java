@@ -1,7 +1,7 @@
 package io.eagle44.newsconsumer.config;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import io.eagle44.newsconsumer.news.News;
+import io.eagle44.newsconsumer.news.NewsDTO;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
@@ -33,10 +33,10 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConsumerFactory<Integer, List<News>> consumerFactory() {
-        JsonDeserializer<List<News>> deserializer = new JsonDeserializer<>(new TypeReference<>() {
+    public ConsumerFactory<Integer, List<NewsDTO>> consumerFactory() {
+        JsonDeserializer<List<NewsDTO>> deserializer = new JsonDeserializer<>(new TypeReference<>() {
         });
-        deserializer.addTrustedPackages("io.eagle44.newsconsumer.news.News");
+        deserializer.addTrustedPackages("io.eagle44.newsconsumer.news.NewsDTO");
         deserializer.setUseTypeMapperForKey(true);
 
         return new DefaultKafkaConsumerFactory<>(
@@ -46,9 +46,9 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<Integer, List<News>>
+    public ConcurrentKafkaListenerContainerFactory<Integer, List<NewsDTO>>
     kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<Integer, List<News>> factory =
+        ConcurrentKafkaListenerContainerFactory<Integer, List<NewsDTO>> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
