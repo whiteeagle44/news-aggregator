@@ -9,7 +9,6 @@ public record News(String title, String url, String description, LocalDateTime p
 
     public News(String title, String url, String description, LocalDateTime publicationDate, String source, String imageURL) {
         NewsValidator.throwIfNewsFieldsIncorrect(title, url, publicationDate, source, imageURL);
-
         this.title = trimField(title);
         this.url = url;
         this.description = getCorrectDescriptionValue(description);
