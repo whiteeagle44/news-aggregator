@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public record News(String title, String url, String description, LocalDateTime publicationDate, String source,
                    String imageURL) {
-    private static final int MAX_FIELD_LENGTH = 256;
+    private static final int MAX_FIELD_LENGTH = 255;
 
     public News(String title, String url, String description, LocalDateTime publicationDate, String source, String imageURL) {
         NewsValidator.throwIfNewsFieldsIncorrect(title, url, publicationDate, source, imageURL);
