@@ -2,6 +2,8 @@ package io.eagle44.newsproducer.newsdataio;
 
 import io.eagle44.newsproducer.news.News;
 import io.eagle44.newsproducer.news.NewsValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,6 +15,8 @@ import java.util.Objects;
 @Service
 public class NewsDataIOService {
     private final NewsDataIOClient newsDataIOClient;
+
+    private static final Logger log = LoggerFactory.getLogger(NewsDataIOService.class);
 
     public NewsDataIOService(NewsDataIOClient newsDataIOClient) {
         this.newsDataIOClient = newsDataIOClient;
@@ -38,7 +42,7 @@ public class NewsDataIOService {
         try {
             NewsValidator.throwIfNewsFieldsIncorrect(result.title(), result.link(), convertToLocalDateTime(result.pubDate()), result.sourceId(), result.imageURL());
         } catch (IllegalArgumentException | NullPointerException exception) {
-            System.out.println(exception.getMessage());
+            log.debug("Skipping news: " + result.title() + ". Reason: " + exception.getMessage());
             return false;
         }
         return true;

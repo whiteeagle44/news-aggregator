@@ -30,7 +30,7 @@ public class NewsValidator {
     }
 
     private static void throwIfEmpty(String input) {
-        if (input.length() == 0)
+        if (input.isEmpty())
             throw new IllegalArgumentException(EMPTY_FIELD_ERROR);
     }
 
