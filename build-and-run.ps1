@@ -6,11 +6,11 @@ get-content .env | foreach {
 
 $currentDir = Get-Location
 Set-Location -Path ".\newsproducer"
-./gradlew build
-docker build --tag=newsproducer:latest .
+./gradlew jibDockerBuild
+
 Set-Location -Path $currentDir
 Set-Location -Path ".\newsconsumer"
-./gradlew build
-docker build --tag=newsconsumer:latest .
+./gradlew jibDockerBuild
+
 Set-Location -Path $currentDir
 docker-compose up -d

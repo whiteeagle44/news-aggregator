@@ -3,7 +3,7 @@ services:
   newsproducer:
     build:
       context: newsproducer
-    image: newsproducer:latest
+    image: newsproducer:0.0.1-SNAPSHOT
     environment:
       NEWSDATAIO_TOKEN: ${NEWSDATAIO_TOKEN}
     ports:
@@ -13,7 +13,7 @@ services:
   newsconsumer:
     build:
       context: newsconsumer
-    image: newsconsumer:latest
+    image: newsconsumer:0.0.1-SNAPSHOT
     ports:
       - "8081:8081"
       - "5001:5001"
